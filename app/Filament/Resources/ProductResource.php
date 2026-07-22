@@ -5,10 +5,13 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class ProductResource extends Resource
@@ -23,9 +26,12 @@ class ProductResource extends Resource
             ->schema([
 
                 Section::make()->schema([
+                    SpatieMediaLibraryFileUpload::make('cover')->collection('cover'),
+                    SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->multiple(),
                     TextInput::make('name')->label('Product Name'),
                     TextInput::make('sku')->label('SKU')->unique(),
                     TextInput::make('slug')->label('Slug')->unique(),
+                    SpatieTagsInput::make('tags')->type('collection')->label('Collection'),
                     TextInput::make('stock')->label('Stock')->numeric()->default(0),
                     TextInput::make('price')->label('Price')->numeric()->prefix('Rp'),
                     TextInput::make('weight')->label('Weight')->numeric()->suffix('Gram'),
@@ -37,7 +43,11 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('sku'),
+                TextColumn::make('slug'),
+                TextColumn::make('stock'),
+                TextColumn::make('price'),
             ])
             ->filters([
                 //
