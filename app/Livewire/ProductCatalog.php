@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Data\ProductData;
 use App\Models\Product;
 use Livewire\Component;
 
@@ -9,9 +10,9 @@ class ProductCatalog extends Component
 {
     public function render()
     {
-        $products = Product::paginate(9);
+        $result = Product::paginate(9); // ORM // Database Query
+        $products = ProductData::collect($result); // DTO (Data Transfer Object)
 
-        // TODO make a DT0
         return view('livewire.product-catalog', compact('products'));
     }
 }
