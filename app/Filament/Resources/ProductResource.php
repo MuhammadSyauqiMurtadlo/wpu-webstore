@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\SpatieTagsInput;
@@ -35,6 +36,7 @@ class ProductResource extends Resource
                     TextInput::make('stock')->label('Stock')->numeric()->default(0),
                     TextInput::make('price')->label('Price')->numeric()->prefix('Rp'),
                     TextInput::make('weight')->label('Weight')->numeric()->suffix('Gram'),
+                    MarkdownEditor::make('description')->label('Description'),
                 ]),
             ]);
     }
@@ -48,6 +50,7 @@ class ProductResource extends Resource
                 TextColumn::make('slug'),
                 TextColumn::make('stock'),
                 TextColumn::make('price'),
+                TextColumn::make('description'),
             ])
             ->filters([
                 //
