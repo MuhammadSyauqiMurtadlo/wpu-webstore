@@ -51,7 +51,7 @@ class AddToCart extends Component
             )
         );
 
-        session()->flash('message', 'Product added to cart successfully!');
+        $this->dispatch('cart-updated');
     }
 
     public function render()
