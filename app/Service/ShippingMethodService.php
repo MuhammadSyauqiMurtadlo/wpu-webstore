@@ -49,7 +49,7 @@ class ShippingMethodService
                 $shipping_data = $this->getDriver($shipping_service)
                     ->getRate($origin, $destination, $cart, $shipping_service);
 
-                if ($shipping_data = null) {
+                if ($shipping_data === null) {
                     return;
                 }
 
