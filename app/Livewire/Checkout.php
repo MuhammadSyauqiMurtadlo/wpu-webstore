@@ -22,6 +22,7 @@ class Checkout extends Component
         'phone' => null,
         'address_line' => null,
         'destination_region_code' => null,
+        'shipping_hash' => null,
     ];
 
     public array $region_selector = [
@@ -58,6 +59,7 @@ class Checkout extends Component
             'data.phone' => ['required', 'min:10', 'max:15'],
             'data.shipping_line' => ['required', 'min:10', 'max:255'],
             'data.destination_region_code' => ['required'],
+            'data.shipping_hash' => ['required'],
         ];
     }
 
@@ -66,7 +68,7 @@ class Checkout extends Component
         data_set($this->summaries, 'sub_total', $this->cart->total);
         data_set($this->summaries, 'sub_total_formatted', $this->cart->total_formatted);
 
-        $shipping_cost = 0;
+        $shipping_cost = $this->ShippingMethod?->cost ?? 0;
         data_set($this->summaries, 'shipping_total', $shipping_cost);
         data_set($this->summaries, 'shipping_total_formatted', Number::currency($shipping_cost));
 
@@ -125,6 +127,34 @@ class Checkout extends Component
             $region_query->searchRegionByCode(data_get($this->data, 'destination_region_code')),
             $this->cart
         )->toCollection()->groupBy('service');
+    }
+
+    public function getShippingMethodProperty(
+        ShippingMethodService $shipping_service
+    ): ?ShippingData {
+        if (
+            empty(data_get($this->data, 'shipping_hash')) ||
+            empty(data_get($this->data, 'destination_region_code'))
+        ) {
+            return null;
+        }
+
+        $data = $shipping_service->getShippingMethod(
+            data_get($this->data, 'shipping_hash')
+        );
+
+        if ($data === null) {
+            $this->addError('shipping_hash', 'Shipping Cost Missing');
+            redirect()->route('checkout');
+        }
+
+        return $data;
+    }
+
+    public function updatedShippingSelectorShippingMethod($value)
+    {
+        data_set($this->data, 'shipping_hash', $value);
+        $this->calculateTotal();
     }
 
     public function placeAndOrder()
