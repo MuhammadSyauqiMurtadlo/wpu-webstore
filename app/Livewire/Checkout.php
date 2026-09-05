@@ -6,6 +6,7 @@ use App\Contract\CartServiceInterface;
 use App\Data\CartData;
 use App\Data\RegionData;
 use App\Data\ShippingData;
+use App\Rules\ValidShippingHash;
 use App\Service\RegionQueryService;
 use App\Service\ShippingMethodService;
 use Illuminate\Support\Collection;
@@ -58,8 +59,8 @@ class Checkout extends Component
             'data.email' => ['required', 'email', 'max:255'],
             'data.phone' => ['required', 'min:10', 'max:15'],
             'data.shipping_line' => ['required', 'min:10', 'max:255'],
-            'data.destination_region_code' => ['required'],
-            'data.shipping_hash' => ['required'],
+            'data.destination_region_code' => ['required', 'exists:regions,code'],
+            'data.shipping_hash' => ['required', new ValidShippingHash],
         ];
     }
 
