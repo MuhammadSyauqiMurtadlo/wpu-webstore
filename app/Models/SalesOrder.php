@@ -11,7 +11,7 @@ class SalesOrder extends Model
         'items',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'payment_payload' => 'json',
     ];
 

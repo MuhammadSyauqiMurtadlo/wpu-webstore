@@ -15,5 +15,7 @@ interface CartServiceInterface
 
     public function getItemBySku(string $sku): ?CartItemData;
 
+    public function clear(): void;
+
     public function all(): CartData;
 }
