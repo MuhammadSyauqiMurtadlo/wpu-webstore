@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SalesOrderCreated
+class SalesOrderCancelledEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -18,7 +18,9 @@ class SalesOrderCreated
      */
     public function __construct(
         public SalesOrderData $sales_order
-    ) {}
+    ) {
+        //
+    }
 
     /**
      * Get the channels the event should broadcast on.

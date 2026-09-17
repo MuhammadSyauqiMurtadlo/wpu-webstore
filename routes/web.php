@@ -7,7 +7,7 @@ use App\Livewire\Checkout;
 use App\Livewire\HomePage;
 use App\Livewire\ProductCatalog;
 use App\Livewire\SalesOrderDetail;
-use App\Mail\SalesOrderCreatedMail;
+use App\Mail\ShippingReceiptNumberUpdatedMail;
 use App\Models\SalesOrder;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +21,7 @@ Route::get('/order-confirmed/{sales_order:trx_id}', SalesOrderDetail::class)->na
 Route::view('/page', 'pages.page')->name('page');
 
 Route::get('/mailable', function () {
-    return new SalesOrderCreatedMail(
+    return new ShippingReceiptNumberUpdatedMail(
         SalesOrderData::from(
             SalesOrder::latest()->first()
         )

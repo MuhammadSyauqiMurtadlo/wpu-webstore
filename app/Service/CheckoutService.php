@@ -7,7 +7,7 @@ namespace App\Service;
 use App\Data\CartItemData;
 use App\Data\CheckoutData;
 use App\Data\SalesOrderData;
-use App\Events\SalesOrderCreated;
+use App\Events\SalesOrderCreatedEvent;
 use App\Models\Product;
 use App\Models\SalesOrder;
 use App\States\SalesOrder\Pending;
@@ -88,7 +88,7 @@ class CheckoutService
 
         $data = SalesOrderData::fromModel($sales_order);
 
-        event(new SalesOrderCreated($data));
+        event(new SalesOrderCreatedEvent($data));
 
         return $data;
     }
