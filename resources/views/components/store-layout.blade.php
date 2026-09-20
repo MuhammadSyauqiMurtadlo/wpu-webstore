@@ -18,6 +18,8 @@
 <body>
     <x-navigation />
 
+    <x-toast />
+
     {{ $slot }}
 
     <x-footer />
