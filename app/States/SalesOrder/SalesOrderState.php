@@ -7,7 +7,6 @@ namespace App\States\SalesOrder;
 use App\States\SalesOrder\Transitions\PendingToCancel;
 use App\States\SalesOrder\Transitions\PendingToProgress;
 use App\States\SalesOrder\Transitions\ProgressToCompleted;
-use Laravel\Prompts\Progress;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
