@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -56,6 +57,7 @@ class BackPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
+                FilamentShieldPlugin::make(),
                 BreezyCore::make()
                     ->myProfile(
                         shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
