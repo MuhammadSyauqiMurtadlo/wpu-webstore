@@ -9,6 +9,7 @@ use App\Data\CartData;
 use App\Data\RegionData;
 use App\Data\ShippingData;
 use App\Data\ShippingServiceData;
+use App\Drivers\Shipping\APIKurirShippingDriver;
 use App\Drivers\Shipping\OfflineShippingDriver;
 use Illuminate\Support\Facades\Cache;
 use Spatie\LaravelData\DataCollection;
@@ -21,6 +22,7 @@ class ShippingMethodService
     {
         $this->drivers = [
             new OfflineShippingDriver,
+            new APIKurirShippingDriver,
         ];
     }
 
