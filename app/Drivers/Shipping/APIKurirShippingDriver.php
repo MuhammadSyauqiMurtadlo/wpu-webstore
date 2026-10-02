@@ -76,6 +76,11 @@ class APIKurirShippingDriver implements ShippingDriverInterface
             return null;
         }
 
+        $data = $response->collect('data')->flatten(1)->values()->first();
+        if (empty($data)) {
+            return null;
+        }
+
         $est = data_get($data, 'minDuration').' - '.data_get($data, 'maxDuration').' - '.data_get($data, 'durationType');
 
         return new ShippingData(
